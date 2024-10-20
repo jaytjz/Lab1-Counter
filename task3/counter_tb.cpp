@@ -41,6 +41,8 @@ int main(int argc, char **argv, char **env) {
 
         // change input stimuli
         top->rst = (i < 2) | (i == 15);
+        top->ld = vbdFlag();
+        top->v = vbdValue();
         if (Verilated::gotFinish()) exit(0);
     }
 

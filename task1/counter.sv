@@ -7,7 +7,7 @@ module counter #(
     output logic [WIDTH-1:0] count
 );
 
-always_ff @ (posedge clk)
+always_ff @ (posedge clk or posedge rst)
     if (rst) 
         count <= {WIDTH{1'b0}};      // Reset the counter to 0
     else 

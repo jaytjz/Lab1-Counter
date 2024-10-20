@@ -5,7 +5,7 @@
 int main(int argc, char **argv, char **env) {
     int i;
     int clk;
-    int pause_cycles = 3;
+    int pause_cycles = 0;
 
     Verilated::commandArgs(argc, argv);
     Vcounter* top = new Vcounter;
@@ -25,11 +25,13 @@ int main(int argc, char **argv, char **env) {
             top->clk = !top->clk;
             top->eval();
         }
-        top->rst = (i < 2);
+        top->rst = (i < 2) | (i == 15);
 
-        if (top->count == 0x9 && pause_cycles > 0){
+        if (pause_cycles > 0){
             top->en = 0;
             pause_cycles--;
+        } else if (top->count == 0x9){
+            pause_cycles = 3;
         } else {
             top->en = (i > 4); 
         }
